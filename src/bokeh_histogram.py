@@ -57,7 +57,7 @@ class BokehHistogram():
                 hover_fill_alpha = 1.0, hover_fill_color = self.colors[1])
         else:
             src = ColumnDataSource(hist_df)
-            plot = figure(plot_height = 600, plot_width = 600,
+            plot = figure(plot_height = self.height, plot_width = self.width,
                   title = "Histogram of {}".format(column.capitalize()),
                   x_axis_label = column.capitalize(),
                   y_axis_label = "Count")    
@@ -140,10 +140,11 @@ df.sample(10)
 
 h = BokehHistogram()
 
-h.hist_hover(df.fillna(0, axis=1), 'nevents', log_scale=False)
+h.hist_hover(df.fillna(0, axis=1), 'nevents', log_scale=True)
 
 h.histotabs(df.fillna(0, axis=1), ['nevents', 'ndays_act', 'nchapters'], log_scale=True)
 
 h.filtered_histotabs(df.fillna(0, axis=1), 'nevents', 'final_cc_cname_DI', log_scale=True)
 
 df.info()
+cd /

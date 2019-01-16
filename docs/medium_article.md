@@ -14,7 +14,7 @@ import numpy as np
 from bokeh.plotting import figure
 from bokeh.io import output_notebook, show, output_file
 from bokeh.models import ColumnDataSource, HoverTool, Panel
-from bokeh.models.widgets import Tabs`
+from bokeh.models.widgets import Tabs
 ```
 
 ## Function One: Hist Hover  
@@ -24,7 +24,7 @@ The first step is to create the data for the histogram with the Numpy function `
 
 `hist, edges = np.histogram(dataframe[column], bins = bins)`
 
-I'm leaving the arguements generic here because we are going to build this out into a function which will take these arguement when it is called. We then turn this histrogram data into a dataframe:
+I'm leaving the arguments generic here because we are going to build this out into a function which will take these argument when it is called. We then turn this histrogram data into a dataframe:
 
 ```python
 hist_df = pd.DataFrame({column: hist,

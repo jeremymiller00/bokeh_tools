@@ -6,7 +6,7 @@ You are probably familiar with Matplotlib and Seaborn, two excellent (and highly
 
 NB: please use this code as a template / baseline and experiment on your own! My intention is to provide instructions for building a functional Python class that can be expanded and customized based on individual need.
 
-First we will write three plotting functions which will help us to get famaliar with Bokeh syntax and conventions. Then we will wrap these three functions is a class to make creating various plots quicker and easier. As with any Python script we begin with the necessary imports:  
+First we will write three plotting functions which will help us to get familiar with Bokeh syntax and conventions. Then we will wrap these three functions is a class to make creating various plots quicker and easier. As with any Python script we begin with the necessary imports:  
 
 ```python
 import pandas as pd
@@ -24,7 +24,7 @@ The first step is to create the data for the histogram with the Numpy function `
 
 `hist, edges = np.histogram(dataframe[column], bins = bins)`
 
-I'm leaving the arguments generic here because we are going to build this out into a function which will take these argument when it is called. We then turn this histrogram data into a dataframe:
+I'm leaving the arguments generic here because we are going to build this out into a function which will take these argument when it is called. We then turn this histogram data into a dataframe:
 
 ```python
 hist_df = pd.DataFrame({column: hist,
@@ -36,7 +36,7 @@ hist_df["interval"] = ["%d to %d" % (left, right) for left,
 
 The first part here creates a dataframe from the histogram data with the target variable counts, and left and rights edges of the bins. The second part creates a new column describing the bins interval. This will be useful when we call the HoverTool in Bokeh.
 
-Next we create a ColumnDataSource object in Bokeh. This is the object that Bokeh uses for much of its plotting capabilites.
+Next we create a ColumnDataSource object in Bokeh. This is the object that Bokeh uses for much of its plotting capabilities.
 
 ```python
 src = ColumnDataSource(hist_df)
@@ -77,7 +77,7 @@ Lastly we ask Bokeh to show us the plot:
             return plot
 ```
 
-We need the option of returning the plot so that this function can be called as a helper is the next two functions. And voila! We have our fuction for creating a histogram with hover tool interactivity! The last bit we will add here is an option for plotting on a log scale, which will require an `if, else` break. Note that if `log_scale=True` then we add another column to the histogram dataframe.
+We need the option of returning the plot so that this function can be called as a helper is the next two functions. And voila! We have our function for creating a histogram with hover tool interactivity! The last bit we will add here is an option for plotting on a log scale, which will require an `if, else` break. Note that if `log_scale=True` then we add another column to the histogram dataframe.
 
 ```python
 def hist_hover(dataframe, column, colors=["SteelBlue", "Tan"], bins=30, log_scale=False, show_plot=True):
@@ -140,7 +140,7 @@ def histotabs(dataframe, features, log_scale=False, show_plot=False):
     show(t)
 ```
 
-Here we create an empty list to store our infividual histograms (one for each variable). Then we the histograms one by one by calling `hist_hover` with the appropriate column. Each histogram is stored in its own Panel object, which is added to our list of histograms. We then create a Bokeh Tabs object assigning the content to our list of histograms, and ask Bokeh to show the Tabs object. 
+Here we create an empty list to store our individual histograms (one for each variable). Then we the histograms one by one by calling `hist_hover` with the appropriate column. Each histogram is stored in its own Panel object, which is added to our list of histograms. We then create a Bokeh Tabs object assigning the content to our list of histograms, and ask Bokeh to show the Tabs object. 
 
 ## Function Three: Filtered Histotabs for Looking at a Single Numeric Variable Filtered by a Catergorical Variable  
 
@@ -162,7 +162,7 @@ This function is straightforward as well. First we filter the dataframe by the u
 
 ## Putting it all together
 
-Now we take these three functions and wrap them up in a Bohek Histogram class where they will become methods. Core visual attributes can be defined when we instantiate the class. Then it's easy to call the methods and create any histograms you need.
+Now we take these three functions and wrap them up in a Bokeh Histogram class where they will become methods. Core visual attributes can be defined when we instantiate the class. Then it's easy to call the methods and create any histograms you need.
 
 ```python
 
@@ -254,9 +254,9 @@ h.histotabs(df.fillna(0, axis=1), ['nevents', 'ndays_act', 'nchapters'], log_sca
 h.filtered_histotabs(df.fillna(0, axis=1), 'nevents', 'final_cc_cname_DI', log_scale=True)
 ```
 
-I chose to plot on a log scale because the data approach an exponential dostribution. I also simply filled null values with zero for demonstration purposes (not always a good idea!)
+I chose to plot on a log scale because the data approach an exponential distribution. I also simply filled null values with zero for demonstration purposes (not always a good idea!)
 
-And now you should have some nifty tabbed histgrams to share! Please modify the code as you see fit, customize it to your needs, and write some docstrings and comments! My fully commented code can be found [here](https://github.com/jeremymiller00/bokeh_tools)
+And now you should have some nifty tabbed histograms to share! Please modify the code as you see fit, customize it to your needs, and write some docstrings and comments! My fully commented code can be found [here](https://github.com/jeremymiller00/bokeh_tools)
 
 Thanks for reading!
 

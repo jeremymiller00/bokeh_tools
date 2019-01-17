@@ -5,7 +5,6 @@ from bokeh.io import output_notebook, show, output_file
 from bokeh.models import ColumnDataSource, HoverTool, Panel
 from bokeh.models.widgets import Tabs
 
-# add functionality for saving the html
 
 class BokehHistogram():
     '''
@@ -127,24 +126,3 @@ class BokehHistogram():
             hists.append(p)
         t = Tabs(tabs=hists)
         show(t)
-
-
-######################
-'''
-demontration code
-'''
-
-df = pd.read_csv('/Users/jeremymiller/GoogleDrive/Data_Science/Projects/Education_Data/harvard_ed_x/data/HMXPC13_DI_v2_5-14-14.csv')
-
-df.sample(10)
-
-h = BokehHistogram()
-
-h.hist_hover(df.fillna(0, axis=1), 'nevents', log_scale=True)
-
-h.histotabs(df.fillna(0, axis=1), ['nevents', 'ndays_act', 'nchapters'], log_scale=True)
-
-h.filtered_histotabs(df.fillna(0, axis=1), 'nevents', 'final_cc_cname_DI', log_scale=True)
-
-df.info()
-cd /

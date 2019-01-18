@@ -5,7 +5,6 @@ from bokeh.io import output_notebook, show, output_file
 from bokeh.models import ColumnDataSource, HoverTool, Panel
 from bokeh.models.widgets import Tabs
 
-
 class BokehHistogram():
     '''
     A class to simplify the making of interactive histograms with the Bokeh library.

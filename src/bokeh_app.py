@@ -1,4 +1,4 @@
-xfrom bokeh.io import output_notebook, show, output_file, curdoc
+from bokeh.io import output_notebook, show, output_file, curdoc
 from bokeh.layouts import column
 from bokeh.models import ColumnDataSource, Slider, Select
 from bokeh.plotting import figure
@@ -23,7 +23,7 @@ import pandas as pd
 
 # curdoc().add_root(plot)
 
-
+'''
 # simple plot with slider
 N = 300
 src = ColumnDataSource(data={'x': random(N), 'y': random(N)})
@@ -48,27 +48,27 @@ curdoc().add_root(layout)
 
 # drop down menu
 df = pd.read_csv('data/harvard.csv').fillna(0, axis=1)
-src = ColumnDataSource(df)
+src = ColumnDataSource(data={'x': df['nevents'], 
+                        'y': df['nplay_video']})
 # src = ColumnDataSource(data={'x': random(N), 'y': random(N)})
 
 plot = figure()
-plot.circle(x='nevents', y='nplay_video', source=src)
+plot.circle('x', 'y', source=src)
 
-# menu = Select(options=['nplay_video', 'nforum_posts'],
-#                 value='nplay_video', title='Y Variable')
+menu = Select(options=['nplay_video', 'nforum_posts'],
+                value='nplay_video', title='Y Variable')
 
 
 def callback(attr, old, new):
     if menu.value == 'nplay_video': 
-        src.data = {'x': nevents, 'y': nplay_video}
+        src.data = {'x': df['nevents'], 'y': df['nplay_video']}
     # elif menu.value == 'normal': 
     #     f = normal
     else: 
-        src.data = {'x': nevents, 'y': nforum_posts}
+        src.data = {'x': df['nevents'], 'y': df['nforum_posts']}
 
-# menu.on_change('value', callback)
+menu.on_change('value', callback)
 
-layout = column(plot)
+layout = column(menu, plot)
 
 curdoc().add_root(layout)
-'''

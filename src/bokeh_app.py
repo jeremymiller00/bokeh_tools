@@ -55,20 +55,20 @@ src = ColumnDataSource(data={'x': df['nevents'],
 plot = figure()
 plot.circle('x', 'y', source=src)
 
-menu = Select(options=['nplay_video', 'nforum_posts'],
-                value='nplay_video', title='Y Variable')
+# menu = Select(options=['nplay_video', 'nforum_posts'],
+#                 value='nplay_video', title='Y Variable')
 
 
-def callback(attr, old, new):
-    if menu.value == 'nplay_video': 
-        src.data = {'x': df['nevents'], 'y': df['nplay_video']}
-    # elif menu.value == 'normal': 
-    #     f = normal
-    else: 
-        src.data = {'x': df['nevents'], 'y': df['nforum_posts']}
+# def callback(attr, old, new):
+#     if new == 'nplay_video': 
+#         src.data = {'x': df['nevents'], 'y': df['nplay_video']}
+#     # elif menu.value == 'normal': 
+#     #     f = normal
+#     else: 
+#         src.data = {'x': df['nevents'], 'y': df['nforum_posts']}
 
-menu.on_change('value', callback)
+# menu.on_change('value', callback)
 
-layout = column(menu, plot)
+layout = column(plot)
 
-curdoc().add_root(layout)
+curdoc().add_root(plot)

@@ -1,11 +1,12 @@
 # Perform necessary imports
 import pandas as pd
-from bokeh.io import output_file, show
+from bokeh.io import output_file, show, curdoc
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource, HoverTool
 
 df = pd.read_csv('data/gapminder_tidy.csv')
 
+'''
 # make basic plot
 # Make the ColumnDataSource: source
 src = ColumnDataSource(data={
@@ -25,34 +26,34 @@ p.circle(x='x', y='y', source=src)
 # Output the file and show the figure
 output_file('gapminder.html')
 show(p)
-
+'''
+#################################################################
 # starting the app
 # Import the necessary modules
-from bokeh.io import curdoc
-from bokeh.models import ColumnDataSource
-from bokeh.plotting import figure
 
 # Make the ColumnDataSource: source
-source = ColumnDataSource(data={
-    'x'       : data.loc[1970].fertility,
-    'y'       : data.loc[1970].life,
-    'country'      : data.loc[1970].Country,
-    'pop'      : (data.loc[1970].population / 20000000) + 2,
-    'region'      : data.loc[1970].region,
+src = ColumnDataSource(data={
+    'x'       : df[df['Year'] == 1970]['fertility'].values,
+    'y'       : df[df['Year'] == 1970]['life'].values,
+    'country' : df[df['Year'] == 1970]['Country'].values,
+    'pop'     : (df[df['Year'] == 1970]['population'].values / 20000000) + 2,
+    'region'  : df[df['Year'] == 1970]['region'].values,
 })
 
 # Save the minimum and maximum values of the fertility column: xmin, xmax
-xmin, xmax = min(data.fertility), max(data.fertility)
+xmin = min(df['fertility'])
+xmax = max(df['fertility'])
 
 # Save the minimum and maximum values of the life expectancy column: ymin, ymax
-ymin, ymax = min(data.life), max(data.life)
+ymin = min(df['fertility'])
+ymax = max(df['fertility'])
 
 # Create the figure: plot
-plot = figure(title='Gapminder Data for 1970', plot_height=400, plot_width=700,
-              x_range=(xmin, xmax), y_range=(ymin, ymax))
+plot = figure(title='Gapminder Data for 1970', plot_height=400,                   plot_width=700, x_range=(xmin, xmax), 
+            y_range=(ymin, ymax))
 
 # Add circle glyphs to the plot
-plot.circle(x='x', y='y', fill_alpha=0.8, source=source)
+plot.circle(x='x', y='y', fill_alpha=0.8, source=src)
 
 # Set the x-axis label
 plot.xaxis.axis_label ='Fertility (children per woman)'
@@ -61,6 +62,7 @@ plot.xaxis.axis_label ='Fertility (children per woman)'
 plot.yaxis.axis_label = 'Life Expectancy (years)'
 
 # Add the plot to the current document and add a title
-curdoc().add_root(plot)
-curdoc().title = 'Gapminder'
+# curdoc().add_root(plot)
+# curdoc().title = 'Gapminder'
 
+show(plot)

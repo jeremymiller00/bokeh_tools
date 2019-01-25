@@ -6,11 +6,12 @@ from bokeh.models import ColumnDataSource, HoverTool
 
 df = pd.read_csv('data/gapminder_tidy.csv')
 
+# make basic plot
 # Make the ColumnDataSource: source
-source = ColumnDataSource(data={
-    'x'       : df.loc[1970].fertility,
-    'y'       : df.loc[1970].life,
-    'country' : df.loc[1970].Country,
+src = ColumnDataSource(data={
+    'x'       : df[df['Year'] == 1970]['fertility'],
+    'y'       : df[df['Year'] == 1970]['life'],
+    'country' : df[df['Year'] == 1970]['Country']
 })
 
 # Create the figure: p
@@ -19,7 +20,7 @@ p = figure(title='1970', x_axis_label='Fertility (children per woman)', y_axis_l
            tools=[HoverTool(tooltips='@country')])
 
 # Add a circle glyph to the figure p
-p.circle(x='x', y='y', source=source)
+p.circle(x='x', y='y', source=src)
 
 # Output the file and show the figure
 output_file('gapminder.html')

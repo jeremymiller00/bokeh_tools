@@ -222,3 +222,4 @@ radio = RadioGroup(labels=['Option1', 'Option2', 'Option3'])
 # Add widgetbox(toggle, checkbox, radio) to the current document
 curdoc().add_root(widgetbox(toggle, checkbox, radio))
 '''
+ 
